@@ -29,6 +29,8 @@ jobs:
 
       - name: Get Version from POM.xml
         uses: entimaniac/read-pom-version-action@1.0.0
+        with:
+          path: "Curso-Docker-Tema-9/mvn-hello-world/pom.xml"
         id: getVersion
 
       - name: Copy generated .war to staging
