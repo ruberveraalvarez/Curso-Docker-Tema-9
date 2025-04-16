@@ -27,7 +27,7 @@ jobs:
         working-directory: "Curso-Docker-Tema-9/mvn-hello-world"
         run: mvn -B package
 
-      - name: List target directory contents
+      - name: Verificar archivos generados
         run: ls -l "Curso-Docker-Tema-9/mvn-hello-world/target/"
 
       - name: Copy generated .war to staging
@@ -38,8 +38,11 @@ jobs:
           fi
           mkdir -p staging && cp "Curso-Docker-Tema-9/mvn-hello-world/target/*.war" staging/
 
+      - name: Exportar versión a un archivo de entorno
+        run: echo "VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
+
       - name: Upload generated .war to Artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-artifact@v3
         with:
-          name: mvn-hello-world-${{ steps.getVersion.outputs.version }}.zip
+          name: mvn-hello-world-${{ env.VERSION }}.zip
           path: staging/
