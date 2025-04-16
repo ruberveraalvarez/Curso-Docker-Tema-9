@@ -20,9 +20,11 @@ jobs:
           distribution: 'temurin'
 
       - name: Test project with Maven
+        # Directorio de trabajo para los comandos de Maven
         working-directory: ./mvn-hello-world
         run: mvn -B test
 
       - name: Build project with Maven
+      # Directorio de trabajo para los comandos de Maven
         working-directory: ./mvn-hello-world
         run: mvn -B package
