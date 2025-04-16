@@ -21,12 +21,12 @@ jobs:
 
       - name: Test project with Maven
         # Directorio de trabajo para los comandos de Maven
-        working-directory: ../mvn-hello-world
+        working-directory: ./mvn-hello-world
         run: mvn -B test
 
       - name: Build project with Maven
         # Directorio de trabajo para los comandos de Maven
-        working-directory: ../mvn-hello-world
+        working-directory: ./mvn-hello-world
         run: mvn -B package
 
       - name: Get Version from POM.xml
@@ -34,7 +34,7 @@ jobs:
         id: getVersion
 
       - name: Copy generated .war to staging
-        run: mkdir staging && cp ../mvn-hello-world/target/*.war staging
+        run: mkdir staging && cp ./mvn-hello-world/target/*.war staging
 
       - name: Upload generated .war to Artifact
         uses: actions/upload-artifact@v3
