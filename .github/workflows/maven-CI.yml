@@ -11,21 +11,19 @@ jobs:
 
     steps:
       - name: Hacemos Checkout del repo de Git
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Set up JDK 8
-        uses: actions/setup-java@v1
+        uses: actions/setup-java@v3
         with:
           java-version: '8'
           distribution: 'temurin'
 
       - name: Test project with Maven
-        # Directorio de trabajo para los comandos de Maven
         working-directory: ./mvn-hello-world
         run: mvn -B test
 
       - name: Build project with Maven
-        # Directorio de trabajo para los comandos de Maven
         working-directory: ./mvn-hello-world
         run: mvn -B package
 
@@ -34,10 +32,10 @@ jobs:
         id: getVersion
 
       - name: Copy generated .war to staging
-        run: mkdir staging && cp ./mvn-hello-world/target/*.war staging
+        run: mkdir -p staging && cp ./mvn-hello-world/target/*.war staging/
 
       - name: Upload generated .war to Artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: mvn-hello-world-${{ steps.getVersion.outputs.version }}.zip
-          path: staging
+          path: staging/
