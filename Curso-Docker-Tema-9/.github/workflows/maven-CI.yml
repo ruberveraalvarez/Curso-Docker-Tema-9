@@ -27,15 +27,16 @@ jobs:
         working-directory: "Curso-Docker-Tema-9/mvn-hello-world"
         run: mvn -B package
 
-      - name: Verify .war file exists
+      - name: List target directory contents
+        run: ls -l "Curso-Docker-Tema-9/mvn-hello-world/target/"
+
+      - name: Copy generated .war to staging
         run: |
-          if [ ! -f "Curso-Docker-Tema-9/mvn-hello-world/target/*.war" ]; then
+          if [ -z "$(ls Curso-Docker-Tema-9/mvn-hello-world/target/*.war 2>/dev/null)" ]; then
             echo "Error: No .war file found in target directory."
             exit 1
           fi
-
-      - name: Copy generated .war to staging
-        run: mkdir -p staging && cp "Curso-Docker-Tema-9/mvn-hello-world/target/*.war" staging/
+          mkdir -p staging && cp "Curso-Docker-Tema-9/mvn-hello-world/target/*.war" staging/
 
       - name: Upload generated .war to Artifact
         uses: actions/upload-pages-artifact@v3
