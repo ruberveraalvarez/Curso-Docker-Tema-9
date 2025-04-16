@@ -37,7 +37,7 @@ jobs:
         run: mkdir staging && cp ./mvn-hello-world/target/*.war staging
 
       - name: Upload generated .war to Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v2
         with:
           name: mvn-hello-world-${{ steps.getVersion.outputs.version }}.zip
           path: staging
