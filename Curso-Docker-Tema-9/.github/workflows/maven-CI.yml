@@ -25,6 +25,12 @@ jobs:
         run: mvn -B test
 
       - name: Build project with Maven
-      # Directorio de trabajo para los comandos de Maven
+        # Directorio de trabajo para los comandos de Maven
         working-directory: ./mvn-hello-world
         run: mvn -B package
+
+      - name: Subir el archivo .war como artefacto
+        uses: actions/upload-artifact@v3
+        with:
+          name: mvn-hello-world-war
+          path: ./mvn-hello-world/target/*.war
