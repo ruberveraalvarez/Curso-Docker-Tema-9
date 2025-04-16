@@ -20,11 +20,11 @@ jobs:
           distribution: 'temurin'
 
       - name: Test project with Maven
-        working-directory: "Tema 9/Curso-Docker-Tema-9/mvn-hello-world"
+        working-directory: "Tema 9/mvn-hello-world"
         run: mvn -B test
 
       - name: Build project with Maven
-        working-directory: "Tema 9/Curso-Docker-Tema-9/mvn-hello-world"
+        working-directory: "Tema 9/mvn-hello-world"
         run: mvn -B package
 
       - name: Get Version from POM.xml
@@ -32,7 +32,7 @@ jobs:
         id: getVersion
 
       - name: Copy generated .war to staging
-        run: mkdir -p staging && cp "Tema 9/Curso-Docker-Tema-9/mvn-hello-world/target/*.war" staging/
+        run: mkdir -p staging && cp "Tema 9/mvn-hello-world/target/*.war" staging/
 
       - name: Upload generated .war to Artifact
         uses: actions/upload-pages-artifact@v3
