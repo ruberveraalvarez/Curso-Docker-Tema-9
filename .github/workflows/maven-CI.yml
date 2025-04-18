@@ -20,21 +20,21 @@ jobs:
           distribution: 'temurin'
 
       - name: Ejecutar tests con Maven
-        working-directory: Curso-Docker-Tema-9
+        working-directory: Curso-Docker-Tema-9/mvn-hello-world
         run: mvn -B test
 
       - name: Construir proyecto con Maven
-        working-directory: Curso-Docker-Tema-9
+        working-directory: Curso-Docker-Tema-9/mvn-hello-world
         run: mvn -B package
 
       - name: Obtener versión desde pom.xml
         uses: entimaniac/read-pom-version-action@1.0.0
         id: getVersion
         with:
-          path: Curso-Docker-Tema-9
+          path: Curso-Docker-Tema-9/mvn-hello-world
 
       - name: Copiar el archivo .war a staging
-        run: mkdir staging && cp Curso-Docker-Tema-9/target/*.war staging
+        run: mkdir staging && cp Curso-Docker-Tema-9/mvn-hello-world/target/*.war staging
 
       - name: Subir el .war generado como artefacto
         uses: actions/upload-artifact@v3
