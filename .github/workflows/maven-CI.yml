@@ -37,7 +37,7 @@ jobs:
         run: mkdir staging && cp Curso-Docker-Tema-9/mvn-hello-world/target/*.war staging
 
       - name: Subir el .war generado como artefacto
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: mvn-hello-world-${{ steps.getVersion.outputs.version }}.zip
           path: staging
