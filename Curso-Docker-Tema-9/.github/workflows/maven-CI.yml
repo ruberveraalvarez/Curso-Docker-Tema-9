@@ -27,23 +27,3 @@ jobs:
         working-directory: "Curso-Docker-Tema-9/mvn-hello-world"
         run: mvn -B package
 
-      - name: Verificar archivos generados
-        run: ls -l "Curso-Docker-Tema-9/mvn-hello-world/target/"
-
-      - name: Copy generated .war to staging
-        run: |
-          if [ -z "$(ls /home/runner/work/Curso-Docker-Tema-9/Curso-Docker-Tema-9/Curso-Docker-Tema-9/mvn-hello-world/target/*.war 2>/dev/null)" ]; then
-            echo "Error: No .war file found in target directory."
-            exit 1
-          fi
-          mkdir -p staging && cp /home/runner/work/Curso-Docker-Tema-9/Curso-Docker-Tema-9/Curso-Docker-Tema-9/mvn-hello-world/target/*.war staging/
-      
-
-      - name: Exportar versión a un archivo de entorno
-        run: echo "VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
-
-      - name: Upload generated .war to Artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: mvn-hello-world-${{ env.VERSION }}.zip
-          path: staging/
